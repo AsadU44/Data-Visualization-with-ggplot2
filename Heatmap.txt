@@ -1,0 +1,44 @@
+library(dplyr)
+library(ggplot2)
+library(viridis)
+
+setwd('D:/CancerData')
+
+#Make Data Frame
+data <-data.frame(Expression_Atlas)
+
+
+#Plot
+pl <- ggplot(data, aes( x = Gene, y = Disease, fill=log2FC))
+pl <- pl + geom_tile()
+pl
+
+
+#Change Color 1
+pl <- pl + theme_minimal()
+pl <- pl + scale_fill_gradient(low = 'white', high = blue)
+pl <- pl + labs(x ="Group", y ="Patients")
+pl <- pl + labs(subtitle = "Disease and Patient's Relation")
+
+
+#Color scale breaks
+pl<- pl+ scale_fill_gradientn(colors = c("blue", "white", "red"),
+                              limits = c(- 7, 7),
+                              breaks = c(-7, -3.5, 0, 3.5, 7))
+
+pl<- pl+ theme(axis.title = (element_text(size=12)), axis.text.x = (element_text(size = 10, angle = 90)))
+
+pl
+
+
+ggsave ("Leukemia_Heatmap.jpg", height = 18, width = 30, units = 'cm', bg= 'white')
+
+#Change color 2
+pl <- ggplot(data = sml,aes( x = cut, y = color, fill=n))
+pl <- pl + geom_tile()
+pl <- pl + theme_minimal()
+pl <- pl + scale_fill_viridis(discrete=FALSE)
+pl <- pl + labs(x ="Group", y ="Patients")
+pl <- pl + labs(subtitle = "Disease and Patient's Relation")
+pl <- pl + theme_minimal()
+pl
