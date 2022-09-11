@@ -1,0 +1,18 @@
+library(ggplot2)
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+
+setwd('D:/CancerData')
+
+plot<- ggplot(New_Microsoft_Excel_Worksheet)+geom_jitter(aes(x=Percent, y=Studies, size=Count, shape=Regulation, color=Pval))+
+  scale_size_continuous(range=c(4,10)) + theme_minimal()+
+  scale_color_gradient(low="Red", high = "Blue") + 
+  theme(text = element_text(size = 13), axis.text=element_text(size=10, colour = "black"), 
+        panel.border = element_rect(color = "black",
+                                    fill = NA,
+                                    size = 1))
+plot
+
+
+ggsave ('Tissue.jpg', height=10, width=14, units='cm', bg='white')
