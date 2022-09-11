@@ -1,0 +1,31 @@
+library(ggplot2)
+library(viridis)
+library(hrbrthemes)
+
+
+Sample_Data <- read_excel("C:/Users/HP/Downloads/Sample Data.xlsx")
+data <- data.frame(Sample_Data)
+
+
+
+
+#4 Group Together
+
+ggplot(data, aes(fill=Group, y=Age, x=Particpants)) + 
+  geom_bar(position="stack", stat="identity") +
+  scale_fill_viridis(discrete = T) +
+  ggtitle("Cancer Project Barplot") +
+  theme_ipsum() +
+  xlab("")
+
+
+#4 Group Separated
+
+ggplot(data, aes(fill=Group, y=Age, x=Particpants)) + 
+  geom_bar(position="dodge", stat="identity") +
+  scale_fill_viridis(discrete = T, option = "E") +
+  ggtitle("Cancer Project Barplot") +
+  facet_wrap(~Particpants) +
+  theme_ipsum() +
+  theme(legend.position="none") +
+  xlab("")
