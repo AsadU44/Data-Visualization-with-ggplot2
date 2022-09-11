@@ -1,0 +1,49 @@
+install.packages("survival")
+install.packages(survminer)
+install.packages("dpylr")
+
+devtools::install_github("kassambara/survminer", build_vignettes = FALSE)
+library(survival)
+library(survminer)
+library(dpylr)
+
+attach(PSMC1)
+
+kmcurve<- survfit(Surv(Time, Event)~Group, data=PSMC1)
+
+ggsurvplot(kmcurve, data=PSMC1)
+
+ggsurvplot(kmcurve, data=PSMC1, censor.shape="|", censor.size = 4)
+
+
+#One way
+ggsurvplot(kmcurve, size=2, xlim=c(0, 60), break.x.by = 12, ylab="Survival Probability", xlab="Months",
+           pval= TRUE, risk.table=TRUE, risk.table.title="",
+           legend.labs=c("Low expression", "High expression"), legend.title="",  
+           surv.scale = "percent", palette= c("#E7B800", "#2E9FDF"),
+           title="Example: Overall Survival",  risk.table.height=.20)
+
+
+ggsurvplot<- ggsurvplot+ xlab="Months"+ ylab('Survival Probability')
+
+
+#Another way
+ggsurvplot(
+  kmcurve,
+  data = PSMC1,
+  size = 1.5,  xlim=c(0, 60),break.x.by = 12,xlab="Time (Months)",
+  censor.shape="|", censor.size = 5, # change line size
+  palette =
+    c("#E7B800", "#2E9FDF"),# custom color palettes
+  conf.int = TRUE,          # Add confidence interval
+  pval = TRUE,              # Add p-value
+  risk.table = TRUE,        # Add risk table
+  risk.table.col = "strata",# Risk table color by groups
+  legend.labs =
+    c("Low Expression", "High Expression"),    # Change legend labels
+  risk.table.height = 0.25, # Useful to change when you have multiple groups
+  ggtheme = theme_light()      # Change ggplot2 theme
+)
+
+
+ggsurvplot(kmcurve, data=PSMC1, censor.shape="|", censor.size = 5)
