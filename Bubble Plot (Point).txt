@@ -1,0 +1,19 @@
+library(ggplot2)
+library(tidyr)
+library(tidyverse)
+library(dplyr)
+
+
+setwd('D:/CancerData')
+
+plot<- ggplot(Cancer_Gene)+geom_point(aes(x=Targets, y=Gene, size=Count, shape=Category), color='#077b8a')+
+  scale_size_continuous(range=c(2,7)) + theme_minimal()+ theme(text = element_text(size = 13), 
+                                  axis.text=element_text(size=10, colour = "black"), 
+                                   panel.border = element_rect(color = "black",
+                                    fill = NA,
+                                    size = 1))
+plot 
+
+ggsave ('Cancer_Gene.jpg', height=16, width=16, units='cm', bg='white')
+
+
