@@ -1,0 +1,30 @@
+library(ggplot2)
+library(tidyverse)
+
+setwd('C:/Users/HP/Desktop/Completed Projects/2022/PSMC LUAD/FIG/Revisions/Validation/GSE1037')
+
+GSE1037__PSMC5<- read.csv('GSE1037__PSMC5.csv')
+
+
+
+my_ggp <- ggplot(data=GSE1037__PSMC5,                                           
+                 aes(x = Group, y = X, fill = Group))+ geom_boxplot()+   
+                 ggtitle('log2FC:0.72, p<0.001') +ylab ('log2(Expression)')
+                 
+                 
+                 
+                 
+#Change background and ALL Text Font Size
+                 
+gg_backgound1 <- my_ggp + theme_minimal() + theme(text = element_text(size = 13), axis.text=element_text(size=15))                
+                 
+p + theme(text=element_text(size=20), #change font size of all text
+          axis.text=element_text(size=20), #change font size of axis text
+          axis.title=element_text(size=20), #change font size of axis titles
+          plot.title=element_text(size=20), #change font size of plot title
+          legend.text=element_text(size=20), #change font size of legend text
+          legend.title=element_text(size=20)) #change font size of legend title                    
+                 
+
+ggsave('DCTN.jpg', width = 20, height = 16, units = c('cm'))
+
